@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
 import { ABI, ADDRESS } from "../contract";
+import { createEventListeners } from "./createEventListeners";
 
 const GlobalContext = createContext();
 
@@ -17,6 +18,14 @@ export const GlobalContextProvider = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState("");
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
+  const [showAlert, setShowAlert] = useState({
+    status: false,
+    type: "info",
+    message: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   //* Set wallet address to the state
   const updateCurrentWalletAddress = async () => {
@@ -47,12 +56,60 @@ export const GlobalContextProvider = ({ children }) => {
     setSmartContractAndProvider();
   }, []);
 
+  //* Handle alerts
+  useEffect(() => {
+    if (showAlert?.status) {
+      const timer = setTimeout(() => {
+        setShowAlert({ status: false, type: "info", message: "" });
+      }, [5000]);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
+  //* Handle error messages
+  useEffect(() => {
+    if (errorMessage) {
+      const parsedErrorMessage = errorMessage?.reason
+        ?.slice("execution reverted: ".length)
+        .slice(0, -1);
+
+      if (parsedErrorMessage) {
+        setShowAlert({
+          status: true,
+          type: "failure",
+          message: parsedErrorMessage,
+        });
+      }
+    }
+  }, [errorMessage]);
+
+  //* Activate event listeners for the smart contract
+  useEffect(() => {
+    if (contract) {
+      createEventListeners({
+        navigate,
+        contract,
+        provider,
+        walletAddress,
+        setShowAlert,
+        // player1Ref,
+        // player2Ref,
+        // setUpdateGameData,
+      });
+    }
+  }, [contract]);
+
   return (
     <GlobalContext.Provider
       value={{
         contract,
         walletAddress,
         provider,
+        showAlert,
+        setShowAlert,
+        errorMessage,
+        setErrorMessage,
       }}
     >
       {children}
