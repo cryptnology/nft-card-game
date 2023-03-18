@@ -44,7 +44,7 @@ async function requestBalance(currentAccount) {
         params: [currentAccount, "latest"],
       });
 
-      currentBalance = parseInt(currentBalance, 16) / 1e18;
+      currentBalance = parseInt(currentBalance, 16);
 
       return { currentBalance, err: false };
     } catch (err) {

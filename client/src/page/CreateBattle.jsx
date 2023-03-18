@@ -6,8 +6,14 @@ import { useGlobalContext } from "../context";
 import { CustomButton, CustomInput, GameLoad, PageHOC } from "../components";
 
 const CreateBattle = () => {
-  const { contract, gameData, battleName, setBattleName, setErrorMessage } =
-    useGlobalContext();
+  const {
+    contract,
+    gameData,
+    battleName,
+    setBattleName,
+    setErrorMessage,
+    walletAddress,
+  } = useGlobalContext();
   const [waitBattle, setWaitBattle] = useState(false);
   const navigate = useNavigate();
 
@@ -35,7 +41,7 @@ const CreateBattle = () => {
       <div className="flex flex-col mb-5">
         <CustomInput
           label="Battle"
-          placeHolder="Enter battle name"
+          placeholder="Enter battle name"
           value={battleName}
           handleValueChange={setBattleName}
         />

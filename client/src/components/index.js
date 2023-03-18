@@ -5,5 +5,6 @@ export { default as CustomButton } from "./CustomButton";
 export { default as CustomInput } from "./CustomInput";
 export { default as GameInfo } from "./GameInfo";
 export { default as GameLoad } from "./GameLoad";
+export { default as OnboardModal } from "./OnboardModal";
 export { default as PageHOC } from "./PageHOC";
 export { default as PlayerInfo } from "./PlayerInfo";

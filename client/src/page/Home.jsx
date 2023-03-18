@@ -43,7 +43,7 @@ const Home = () => {
     };
 
     if (contract) createPlayerToken();
-  }, [contract]);
+  }, [contract, walletAddress]);
 
   return (
     <div className="flex flex-col">
