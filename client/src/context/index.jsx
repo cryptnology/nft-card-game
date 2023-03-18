@@ -25,6 +25,7 @@ export const GlobalContextProvider = ({ children }) => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [battleName, setBattleName] = useState("");
+  const [battleGround, setBattleGround] = useState("bg-astral");
   const [updateGameData, setUpdateGameData] = useState(0);
   const [gameData, setGameData] = useState({
     players: [],
@@ -154,6 +155,8 @@ export const GlobalContextProvider = ({ children }) => {
         gameData,
         player1Ref,
         player2Ref,
+        battleGround,
+        setBattleGround,
       }}
     >
       {children}

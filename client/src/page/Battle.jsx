@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "../styles";
-import { Alert } from "../components";
+import { Alert, PlayerInfo, Card, ActionButton, GameInfo } from "../components";
 import { useGlobalContext } from "../context";
 import {
   attack,
@@ -27,8 +27,8 @@ const Battle = () => {
     player1Ref,
     player2Ref,
   } = useGlobalContext();
-  const [player2, setPlayer2] = useState({});
   const [player1, setPlayer1] = useState({});
+  const [player2, setPlayer2] = useState({});
   const { battleName } = useParams();
   const navigate = useNavigate();
 
@@ -110,35 +110,35 @@ const Battle = () => {
         <Alert type={showAlert.type} message={showAlert.message} />
       )}
 
-      {/* <PlayerInfo player={player2} playerIcon={player02Icon} mt /> */}
+      <PlayerInfo player={player2} playerIcon={player02Icon} mt />
 
       <div className={`${styles.flexCenter} flex-col my-10`}>
-        {/* <Card
+        <Card
           card={player2}
           title={player2?.playerName}
           cardRef={player2Ref}
           playerTwo
-        /> */}
+        />
 
         <div className="flex items-center flex-row">
-          {/* <ActionButton
+          <ActionButton
             imgUrl={attack}
             handleClick={() => makeAMove(1)}
-            restStyles="mr-2 hover:border-yellow-400"
-          /> */}
+            restStyles="hover:border-yellow-400"
+          />
 
-          {/* <Card
+          <Card
             card={player1}
             title={player1?.playerName}
             cardRef={player1Ref}
             restStyles="mt-3"
-          /> */}
+          />
 
-          {/* <ActionButton
+          <ActionButton
             imgUrl={defense}
             handleClick={() => makeAMove(2)}
-            restStyles="ml-6 hover:border-red-600"
-          /> */}
+            restStyles="hover:border-red-600"
+          />
         </div>
       </div>
 
