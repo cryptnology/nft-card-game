@@ -155,15 +155,23 @@ export const GlobalContextProvider = ({ children }) => {
   //* Handle error messages
   useEffect(() => {
     if (errorMessage) {
-      const parsedErrorMessage = errorMessage?.reason
-        ?.slice("execution reverted: ".length)
-        .slice(0, -1);
+      if (errorMessage?.reason.includes("execution reverted:")) {
+        const parsedErrorMessage = errorMessage?.reason
+          ?.slice("execution reverted: ".length)
+          .slice(0, -1);
 
-      if (parsedErrorMessage) {
+        if (parsedErrorMessage) {
+          setShowAlert({
+            status: true,
+            type: "failure",
+            message: parsedErrorMessage,
+          });
+        }
+      } else {
         setShowAlert({
           status: true,
           type: "failure",
-          message: parsedErrorMessage,
+          message: errorMessage?.reason,
         });
       }
     }

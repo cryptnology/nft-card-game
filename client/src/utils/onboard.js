@@ -44,7 +44,7 @@ async function requestBalance(currentAccount) {
         params: [currentAccount, "latest"],
       });
 
-      currentBalance = parseInt(currentBalance, 16);
+      currentBalance = parseInt(currentBalance, 16) / 1e18;
 
       return { currentBalance, err: false };
     } catch (err) {
@@ -95,7 +95,7 @@ export const GetParams = async () => {
 
   response.balance = currentBalance;
 
-  if (currentBalance < 0.2) {
+  if (currentBalance < 0.1) {
     response.step = 3;
 
     return response;

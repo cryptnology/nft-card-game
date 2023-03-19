@@ -73,7 +73,8 @@ const OnboardModal = () => {
         return (
           <>
             <p className={styles.modalText}>
-              Oops, you don't have Goerli ETH in your account
+              Oops, you don't have Goerli ETH or enough in your account. Please
+              have at least 0.1 Goerli ETH.
             </p>
             <CustomButton
               title="Grab some test ETH"
