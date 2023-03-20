@@ -5,7 +5,7 @@ import { CustomInput, PageHOC, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
 
 const Home = () => {
-  const { contract, walletAddress, setShowAlert, setErrorMessage } =
+  const { contract, walletAddress, setShowAlert, setErrorMessage, gameData } =
     useGlobalContext();
   const [playerName, setPlayerName] = useState("");
 
@@ -17,7 +17,7 @@ const Home = () => {
 
       if (!playerExists) {
         await contract.registerPlayer(playerName, playerName, {
-          gasLimit: 500000,
+          gasLimit: 200000,
         });
 
         setShowAlert({
@@ -30,7 +30,6 @@ const Home = () => {
       }
     } catch (error) {
       setErrorMessage(error);
-      console.log(error.message);
     }
   };
 
@@ -44,6 +43,10 @@ const Home = () => {
 
     if (contract) createPlayerToken();
   }, [contract, walletAddress]);
+
+  useEffect(() => {
+    if (gameData) navigate(`/battle/${gameData?.activeBattle?.name}`);
+  }, [gameData]);
 
   return (
     <div className="flex flex-col">
