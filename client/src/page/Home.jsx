@@ -5,7 +5,7 @@ import { CustomInput, PageHOC, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
 
 const Home = () => {
-  const { contract, walletAddress, setShowAlert, setErrorMessage, gameData } =
+  const { contract, walletAddress, setShowAlert, setErrorMessage } =
     useGlobalContext();
   const [playerName, setPlayerName] = useState("");
 
@@ -43,10 +43,6 @@ const Home = () => {
 
     if (contract) createPlayerToken();
   }, [contract, walletAddress]);
-
-  useEffect(() => {
-    if (gameData) navigate(`/battle/${gameData?.activeBattle?.name}`);
-  }, [gameData]);
 
   return (
     <div className="flex flex-col">
